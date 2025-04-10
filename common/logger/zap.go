@@ -9,6 +9,8 @@ import (
 	"os"
 )
 
+var _logger *zap.Logger
+
 func init() {
 	encoderConfig := zap.NewProductionEncoderConfig()
 	encoderConfig.EncodeTime = zapcore.ISO8601TimeEncoder
@@ -30,10 +32,8 @@ func init() {
 
 	}
 	core := zapcore.NewTee(cores...)
-	// 实例化 logger
-	log = &logger{
-		_logger: zap.New(core),
-	}
+	// 实例化 _logger
+	_logger = zap.New(core)
 }
 
 func getFileLogWriter() (writeSyncer zapcore.WriteSyncer) {

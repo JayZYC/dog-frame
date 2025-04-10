@@ -2,6 +2,7 @@ package dao
 
 import (
 	"github.com/dog-frame/config"
+	"github.com/dog-frame/dal/model"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/plugin/dbresolver"
@@ -56,6 +57,9 @@ func initDB(option config.DbConnectOption) *gorm.DB {
 	sqlDb, _ := db.DB()
 
 	if err = sqlDb.Ping(); err != nil {
+		panic(err)
+	}
+	if err = db.AutoMigrate(model.Demo{}); err != nil {
 		panic(err)
 	}
 	return db

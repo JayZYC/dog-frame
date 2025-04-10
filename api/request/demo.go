@@ -1,5 +1,5 @@
 package request
 
 type DemoCreate struct {
-	Name int64 `json:"name" binding:"required"`
+	Name string `json:"name" binding:"required"`
 }

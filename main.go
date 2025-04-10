@@ -41,12 +41,12 @@ func main() {
 	signal.Notify(done, os.Interrupt, syscall.SIGINT, syscall.SIGTERM)
 	go func() {
 		<-done
-		if err := server.Shutdown(context.Background()); err != nil {
+		if err := server.Shutdown(ctx); err != nil {
 			logger.Error(ctx, "ShutdownServerError", "err", err)
 		}
 	}()
 
-	logger.Info(ctx, "Starting GO MALL HTTP server...")
+	logger.Info(ctx, "Starting DOG FRAME HTTP server...")
 	err := server.ListenAndServe()
 	if err != nil {
 		if errors.Is(err, http.ErrServerClosed) {
