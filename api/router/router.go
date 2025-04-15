@@ -1,8 +1,14 @@
 package router
 
 import (
+	"github.com/dog-frame/common/enum"
 	"github.com/dog-frame/common/middleware"
+	"github.com/dog-frame/config"
 	"github.com/gin-gonic/gin"
+
+	"github.com/dog-frame/docs"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 func Register(e *gin.Engine) {
@@ -11,6 +17,11 @@ func Register(e *gin.Engine) {
 
 	// 注册指标路由
 	registerMetricsRoutes(r)
+
+	// 生产模式关闭Swagger
+	if config.App.Env != enum.ModeProd {
+		r.GET(docs.SwaggerInfo.BasePath+"/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+	}
 
 	r.Use(
 		middleware.StartTrace,

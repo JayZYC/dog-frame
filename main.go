@@ -14,6 +14,20 @@ import (
 	"syscall"
 )
 
+//go:generate swag init
+// http://localhost:8080/api/swagger/index.html
+
+//	@title					Dog Frame API
+//	@version				1.0
+//	@description	This is a sample server dog frame.
+//	@contact.name	JayZYC
+//	@contact.url	https://github.com/JayZYC
+//	@contact.email	584405019@qq.com
+//	@license.name	MIT
+//	@license.url	https://mit-license.org
+//
+// @host		localhost:8080
+// @BasePath	/api
 func main() {
 
 	// 配置初始化

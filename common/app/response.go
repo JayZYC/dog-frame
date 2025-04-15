@@ -6,7 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type response struct {
+type Response struct {
 	ctx        *gin.Context
 	Code       int         `json:"code"`
 	Msg        string      `json:"msg"`
@@ -15,17 +15,17 @@ type response struct {
 	Pagination *Pagination `json:"pagination,omitempty"`
 }
 
-func NewResponse(c *gin.Context) *response {
-	return &response{ctx: c}
+func NewResponse(c *gin.Context) *Response {
+	return &Response{ctx: c}
 }
 
 // SetPagination 设置Response的分页信息
-func (r *response) SetPagination(pagination *Pagination) *response {
+func (r *Response) SetPagination(pagination *Pagination) *Response {
 	r.Pagination = pagination
 	return r
 }
 
-func (r *response) Success(data interface{}) {
+func (r *Response) Success(data interface{}) {
 	r.Code = errcode.Success.Code()
 	r.Msg = errcode.Success.Msg()
 	requestId := ""
@@ -39,11 +39,11 @@ func (r *response) Success(data interface{}) {
 	r.ctx.JSON(errcode.Success.HttpStatusCode(), r)
 }
 
-func (r *response) SuccessOk() {
+func (r *Response) SuccessOk() {
 	r.Success("")
 }
 
-func (r *response) Error(err *errcode.AppError) {
+func (r *Response) Error(err *errcode.AppError) {
 	r.Code = err.Code()
 	r.Msg = err.Msg()
 	requestId := ""
