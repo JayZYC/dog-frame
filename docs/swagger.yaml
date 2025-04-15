@@ -1,0 +1,74 @@
+basePath: /api
+definitions:
+  app.Pagination:
+    properties:
+      page:
+        type: integer
+      page_size:
+        type: integer
+      total_rows:
+        type: integer
+    type: object
+  app.Response:
+    properties:
+      code:
+        type: integer
+      data: {}
+      msg:
+        type: string
+      pagination:
+        $ref: '#/definitions/app.Pagination'
+      request_id:
+        type: string
+    type: object
+  request.DemoCreate:
+    properties:
+      name:
+        type: string
+    required:
+    - name
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: 584405019@qq.com
+    name: JayZYC
+    url: https://github.com/JayZYC
+  description: This is a sample server dog frame.
+  license:
+    name: MIT
+    url: https://mit-license.org
+  title: Dog Frame API
+  version: "1.0"
+paths:
+  /demo:
+    post:
+      consumes:
+      - application/json
+      description: 创建一个新的示例数据
+      parameters:
+      - description: 示例数据
+        in: body
+        name: demo
+        required: true
+        schema:
+          $ref: '#/definitions/request.DemoCreate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            $ref: '#/definitions/app.Response'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 创建示例数据
+      tags:
+      - 示例
+swagger: "2.0"
